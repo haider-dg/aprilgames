@@ -101,24 +101,10 @@
             // Create the scene object.
             scene = new THREE.Scene();
 
-<<<<<<< HEAD
-                // Add the light.
-                light= new THREE.PointLight(0xffffff, 10);
-                light.position.set(1, 1, 1.3);
-                scene.add(light);
-                
-                // Add the ball.
-                g = new THREE.SphereGeometry(ballRadius, 32, 16);
-                m = new THREE.MeshPhongMaterial({map:ironTexture});
-                ballMesh = new THREE.Mesh(g, m);
-                ballMesh.position.set(1, 1, ballRadius);
-                scene.add(ballMesh);
-=======
             // Add the light.
             light = new THREE.PointLight(0xffffff, 1, 100);
             light.position.set(1, 1, 3.0);
             scene.add(light);
->>>>>>> 449ad206f628f1a13fea6bd466c4f853787211c2
 
             // Add the ball.
             g = new THREE.SphereGeometry(ballRadius, 32, 16);
