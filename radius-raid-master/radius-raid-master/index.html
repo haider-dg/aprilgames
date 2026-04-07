@@ -129,15 +129,15 @@
 
 		bgMusic.volume = 0.5;
 
-		soundToggle.addEventListener('mousedown', function(e) {
+		soundToggle.addEventListener('mousedown', function (e) {
 			e.stopPropagation();
 			$.mute = !$.mute;
 			bgMusic.muted = $.mute;
 			soundIcon.innerHTML = $.mute ? mutedSVG : speakerSVG;
 		});
 
-		var playMusic = function() {
-			bgMusic.play().catch(function(e) {
+		var playMusic = function () {
+			bgMusic.play().catch(function (e) {
 				console.log('Audio play failed:', e);
 			});
 			window.removeEventListener('mousedown', playMusic);
