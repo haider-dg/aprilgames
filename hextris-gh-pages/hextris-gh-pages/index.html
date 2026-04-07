@@ -1,161 +1,193 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<title>Hextris</title>
-		<meta name="description" content="An addictive puzzle game inspired by Tetris.">
-		<link rel="manifest" href="manifest.webmanifest">
-		<meta name="apple-itunes-app" content="app-id=903769553"/>
-		<meta name="apple-mobile-web-app-title" content="Hextris">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="apple-touch-icon" sizes="120x120" href="images/icons/apple-touch-120.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="images/icons/apple-touch-152.png">
-		<link rel="apple-touch-icon" sizes="167x167" href="images/icons/apple-touch-167.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-180.png">
-		<link rel="apple-touch-icon" sizes="512x512" href="images/icons/apple-touch-512.png">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui"/>
-		<meta property="og:url" content="http://hextris.github.io/hextris/"/>
-		<meta property="og:site_name" content="Hextris"/>
-		<meta property="og:title" content="Hextris"/>
-		<meta property="og:description" content="An addictive puzzle game inspired by Tetris."/>
-		<meta property="og:type" content="website"/>
-		<meta property="og:author" content="https://www.facebook.com/hextris"/>
-		<meta property="og:image" content="http://hextris.github.io/hextris/images/facebook-opengraph.png"/>
-		<meta property="og:image:width" content="1200"/>
-		<meta property="og:image:height" content="630"/>
-		<meta property="twitter:card" content="summary"/>
-		<meta property="twitter:site" content="@hextris"/>
-		<meta property="twitter:site:id" content="2742209678"/>
-		<meta property="twitter:creator" content="@hextris"/>
-		<meta property="twitter:creator:id" content="2742209678"/>
-		<meta property="twitter:domain" content="http://hextris.github.io"/>
-		<meta property="twitter:title" content="Hextris"/>
-		<meta property="twitter:description" content="An addictive puzzle game inspired by Tetris."/>
-		<meta property="twitter:image:src" content="http://hextris.github.io/hextris/images/twitter-opengraph.png"/>
-		<meta property="twitter:image:width" content="512"/>
-		<meta property="twitter:image:height" content="512"/>
-		<meta property="twitter:app:id:iphone" content="id903769553">
-		<meta property="twitter:app:id:ipad" content="id903769553">
-		<meta property="twitter:app:id:googleplay" content="com.hextris.hextris">
-		<meta property="twitter:app:country" content="us">
-		<meta property="twitter:app:url:iphone" content="itunes.apple.com/us/app/id903769553?mt=8">
-		<meta property="twitter:app:url:ipad" content="itunes.apple.com/us/app/id903769553?mt=8">
-		<meta property="twitter:app:url:googleplay" content="https://play.google.com/store/apps/details?id=com.hextris.hextris">
-		<link rel="icon" type="image/png" href="favicon.ico">
-		<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="style/fa/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="style/style.css">
-		<script type='text/javascript' src="vendor/hammer.min.js"></script>
-		<script type='text/javascript' src="vendor/js.cookie.js"></script>
-		<script type='text/javascript' src="vendor/jsonfn.min.js"></script>
-		<script type='text/javascript' src="vendor/keypress.min.js"></script>
-		<script type='text/javascript' src="vendor/jquery.js"></script>
-		<script type='text/javascript' src="js/save-state.js"></script>
-		<script type='text/javascript' src="js/view.js"></script>
-		<script type='text/javascript' src="js/wavegen.js"></script>
-		<script type='text/javascript' src="js/math.js"></script>
-		<script type='text/javascript' src="js/Block.js"></script>
-		<script type='text/javascript' src="js/Hex.js"></script>
-		<script type='text/javascript' src="js/Text.js"></script>
-		<script type='text/javascript' src="js/comboTimer.js"></script>
-		<script type='text/javascript' src="js/checking.js"></script>
-		<script type='text/javascript' src='js/update.js'></script>
-		<script type='text/javascript' src='js/render.js'></script>
-		<script type='text/javascript' src="js/input.js"></script>
-		<script type='text/javascript' src="js/main.js"></script>
-		<script type='text/javascript' src="js/initialization.js"></script>
-		<script src="vendor/sweet-alert.min.js"></script>
-		<link rel="stylesheet" href="style/rrssb.css"/>
-		<script data-ad-client="ca-pub-9107422120987163" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	</head>
-	<body>
-		<canvas id="canvas"></canvas>
-		<div id="overlay" class="faded overlay"></div>
-		<div id='startBtn' ></div>
-		<div id="helpScreen" class='unselectable'>
-			<div id='inst_main_body'></div>
-		</div>
-		<img id="openSideBar" class='helpText' src="./images/btn_help.svg"/>
-		<div class="faded overlay"></div>
-		<img id="pauseBtn" src="./images/btn_pause.svg"/>
-		<img id='restartBtn' src="./images/btn_restart.svg"/>
-		<div id='HIGHSCORE'>HIGH SCORE</div>
-		<script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-51272720-2', 'auto'); ga('send', 'pageview');
-		</script>
-		<div id='highScoreInGameText'>
-			<div id='highScoreInGameTextHeader'>HIGH SCORE</div><div id='currentHighScore'>10292</div>
-		</div>
-		<div id="gameoverscreen">
-			<div id='container'>
-				<div id='gameOverBox' class='GOTitle'>GAME OVER</div>
-				<div id='cScore'>1843</div>
-				<div id='highScoresTitle' class='GOTitle'>HIGH SCORES</div>
-				<div class='score'><span class='scoreNum'>1.</span> <div id="1place" style="display:inline;">0</div></div>
-				<div class='score'><span class='scoreNum'>2.</span> <div id="2place" style="display:inline;">0</div></div>
-				<div class='score'><span class='scoreNum'>3.</span> <div id="3place" style="display:inline;">0</div></div>
+
+<head>
+	<title>Hextris</title>
+	<meta name="description" content="An addictive puzzle game inspired by Tetris.">
+	<link rel="manifest" href="manifest.webmanifest">
+	<meta name="apple-itunes-app" content="app-id=903769553" />
+	<meta name="apple-mobile-web-app-title" content="Hextris">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-icon" sizes="120x120" href="images/icons/apple-touch-120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="images/icons/apple-touch-152.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="images/icons/apple-touch-167.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-180.png">
+	<link rel="apple-touch-icon" sizes="512x512" href="images/icons/apple-touch-512.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui" />
+	<meta property="og:url" content="http://hextris.github.io/hextris/" />
+	<meta property="og:site_name" content="Hextris" />
+	<meta property="og:title" content="Hextris" />
+	<meta property="og:description" content="An addictive puzzle game inspired by Tetris." />
+	<meta property="og:type" content="website" />
+	<meta property="og:author" content="https://www.facebook.com/hextris" />
+	<meta property="og:image" content="http://hextris.github.io/hextris/images/facebook-opengraph.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="twitter:card" content="summary" />
+	<meta property="twitter:site" content="@hextris" />
+	<meta property="twitter:site:id" content="2742209678" />
+	<meta property="twitter:creator" content="@hextris" />
+	<meta property="twitter:creator:id" content="2742209678" />
+	<meta property="twitter:domain" content="http://hextris.github.io" />
+	<meta property="twitter:title" content="Hextris" />
+	<meta property="twitter:description" content="An addictive puzzle game inspired by Tetris." />
+	<meta property="twitter:image:src" content="http://hextris.github.io/hextris/images/twitter-opengraph.png" />
+	<meta property="twitter:image:width" content="512" />
+	<meta property="twitter:image:height" content="512" />
+	<meta property="twitter:app:id:iphone" content="id903769553">
+	<meta property="twitter:app:id:ipad" content="id903769553">
+	<meta property="twitter:app:id:googleplay" content="com.hextris.hextris">
+	<meta property="twitter:app:country" content="us">
+	<meta property="twitter:app:url:iphone" content="itunes.apple.com/us/app/id903769553?mt=8">
+	<meta property="twitter:app:url:ipad" content="itunes.apple.com/us/app/id903769553?mt=8">
+	<meta property="twitter:app:url:googleplay"
+		content="https://play.google.com/store/apps/details?id=com.hextris.hextris">
+	<link rel="icon" type="image/png" href="favicon.ico">
+	<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="style/fa/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<script type='text/javascript' src="vendor/hammer.min.js"></script>
+	<script type='text/javascript' src="vendor/js.cookie.js"></script>
+	<script type='text/javascript' src="vendor/jsonfn.min.js"></script>
+	<script type='text/javascript' src="vendor/keypress.min.js"></script>
+	<script type='text/javascript' src="vendor/jquery.js"></script>
+	<script type='text/javascript' src="js/save-state.js"></script>
+	<script type='text/javascript' src="js/view.js"></script>
+	<script type='text/javascript' src="js/wavegen.js"></script>
+	<script type='text/javascript' src="js/math.js"></script>
+	<script type='text/javascript' src="js/Block.js"></script>
+	<script type='text/javascript' src="js/Hex.js"></script>
+	<script type='text/javascript' src="js/Text.js"></script>
+	<script type='text/javascript' src="js/comboTimer.js"></script>
+	<script type='text/javascript' src="js/checking.js"></script>
+	<script type='text/javascript' src='js/update.js'></script>
+	<script type='text/javascript' src='js/render.js'></script>
+	<script type='text/javascript' src="js/input.js"></script>
+	<script type='text/javascript' src="js/main.js"></script>
+	<script type='text/javascript' src="js/initialization.js"></script>
+	<script src="vendor/sweet-alert.min.js"></script>
+	<link rel="stylesheet" href="style/rrssb.css" />
+	<script data-ad-client="ca-pub-9107422120987163" async
+		src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+	<div id="overlay" class="faded overlay"></div>
+	<div id='startBtn'></div>
+	<div id="helpScreen" class='unselectable'>
+		<div id='inst_main_body'></div>
+	</div>
+	<img id="openSideBar" class='helpText' src="./images/btn_help.svg" />
+	<div class="faded overlay"></div>
+	<img id="pauseBtn" src="./images/btn_pause.svg" />
+	<img id='restartBtn' src="./images/btn_restart.svg" />
+	<div id='HIGHSCORE'>HIGH SCORE</div>
+	<script> (function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-51272720-2', 'auto'); ga('send', 'pageview');
+	</script>
+	<div id='highScoreInGameText'>
+		<div id='highScoreInGameTextHeader'>HIGH SCORE</div>
+		<div id='currentHighScore'>10292</div>
+	</div>
+	<div id="pif-header">
+		<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAAAoCAYAAAA/mlIyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMS1jMDAyIDc5LmYzNTRlZmM3MCwgMjAyMy8xMS8wOS0xMjowNTo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI1LjUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjEwNjVBRDE0OEE1MzExRUY5MkFDRjVDMzg1M0RCMjkwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjEwNjVBRDE1OEE1MzExRUY5MkFDRjVDMzg1M0RCMjkwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTA2NUFEMTI4QTUzMTFFRjkyQUNGNUMzODUzREIyOTAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NUFEMTM4QTUzMTFFRjkyQUNGNUMzODUzREIyOTAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6MtVlrAAAam0lEQVR42uyc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"
+			alt="PIF Logo">
+	</div>
+	<div id="gameoverscreen">
+		<div id='container'>
+			<div id='gameOverBox' class='GOTitle'>GAME OVER</div>
+			<div id='cScore'>1843</div>
+			<div id='highScoresTitle' class='GOTitle'>HIGH SCORES</div>
+			<div class='score'><span class='scoreNum'>1.</span>
+				<div id="1place" style="display:inline;">0</div>
 			</div>
-			<div id='bottomContainer'>
-				<img id='restart' src='./images/btn_restart.svg' height='57px'>
-				<div id='socialShare'>
-					<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-					<svg width="224.6377px" height="57px"  viewBox="0 0 255 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-						<title>Share button</title>
-						<defs>
-						</defs>
-						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-							<g id="Game-over-" sketch:type="MSArtboardGroup" transform="translate(-95.000000, -565.000000)">
-								<g id="Share-button" sketch:type="MSLayerGroup" transform="translate(95.000000, 565.000000)">
-								<a style="cursor:pointer;"class="popup" onclick="window.open('https://twitter.com/intent/tweet?text=Can you beat my score of '+ score +' points at&button_hashtag=hextris ? http://hextris.github.io/hextris @hextris','name','width=600,height=400')" ><polygon  id="Score-hex-2" fill="#3498DB" sketch:type="MSShapeGroup" transform="translate(127.661316, 32.500000) rotate(-90.000000) translate(-127.661316, -32.500000) " points="127.661316 -94.814636 160.137269 -76.064636 160.137269 141.064636 127.661317 159.814636 95.185364 141.064636 95.1853635 -76.064636 "></polygon></a>
-									<text style="cursor:pointer;"class="popup" onclick="window.open('https://twitter.com/intent/tweet?text=Can you beat my score of '+ score +' points at&button_hashtag=hextris ? http://hextris.github.io/hextris @hextris','name','width=600,height=400')" id="SHARE-MY-SCORE!" sketch:type="MSTextLayer" font-family="Exo" font-size="16" font-weight="420" fill="#FFFFFF">
-										<tspan x="67" y="39">SHARE MY SCORE!</tspan>
-									</text>
-								</g>
+			<div class='score'><span class='scoreNum'>2.</span>
+				<div id="2place" style="display:inline;">0</div>
+			</div>
+			<div class='score'><span class='scoreNum'>3.</span>
+				<div id="3place" style="display:inline;">0</div>
+			</div>
+		</div>
+		<div id='bottomContainer'>
+			<img id='restart' src='./images/btn_restart.svg' height='57px'>
+			<!-- <div id='socialShare'>
+				<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<svg width="224.6377px" height="57px" viewBox="0 0 255 65" version="1.1"
+					xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<title>Share button</title>
+					<defs>
+					</defs>
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+						<g id="Game-over-" sketch:type="MSArtboardGroup" transform="translate(-95.000000, -565.000000)">
+							<g id="Share-button" sketch:type="MSLayerGroup"
+								transform="translate(95.000000, 565.000000)">
+								<a style="cursor:pointer;" class="popup"
+									onclick="window.open('https://twitter.com/intent/tweet?text=Can you beat my score of '+ score +' points at&button_hashtag=hextris ? http://hextris.github.io/hextris @hextris','name','width=600,height=400')">
+									<polygon id="Score-hex-2" fill="#3498DB" sketch:type="MSShapeGroup"
+										transform="translate(127.661316, 32.500000) rotate(-90.000000) translate(-127.661316, -32.500000) "
+										points="127.661316 -94.814636 160.137269 -76.064636 160.137269 141.064636 127.661317 159.814636 95.185364 141.064636 95.1853635 -76.064636 ">
+									</polygon>
+								</a>
+								<text style="cursor:pointer;" class="popup"
+									onclick="window.open('https://twitter.com/intent/tweet?text=Can you beat my score of '+ score +' points at&button_hashtag=hextris ? http://hextris.github.io/hextris @hextris','name','width=600,height=400')"
+									id="SHARE-MY-SCORE!" sketch:type="MSTextLayer" font-family="Exo" font-size="16"
+									font-weight="420" fill="#FFFFFF">
+									<tspan x="67" y="39">SHARE MY SCORE!</tspan>
+								</text>
 							</g>
 						</g>
-					</svg>
-				</div>
-				<div id='buttonCont'>
-					<ul class="rrssb-buttons">
-						<li class="rrssb-facebook">
-							<a href='http://www.facebook.com/sharer.php?s=100
+					</g>
+				</svg>
+			</div> -->
+			<div id='buttonCont'>
+				<!-- <ul class="rrssb-buttons">
+					<li class="rrssb-facebook">
+						<a href='http://www.facebook.com/sharer.php?s=100
 								&p[url]=hextris.io' class="popup">
-								<span class="rrssb-icon">
-									<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="29" height="29" viewBox="0 0 29 29">
-										<path d="M26.4 0H2.6C1.714 0 0 1.715 0 2.6v23.8c0 .884 1.715 2.6 2.6 2.6h12.393V17.988h-3.996v-3.98h3.997v-3.062c0-3.746 2.835-5.97 6.177-5.97 1.6 0 2.444.173 2.845.226v3.792H21.18c-1.817 0-2.156.9-2.156 2.168v2.847h5.045l-.66 3.978h-4.386V29H26.4c.884 0 2.6-1.716 2.6-2.6V2.6c0-.885-1.716-2.6-2.6-2.6z"
-										class="cls-2" fill-rule="evenodd"/>
-									</svg>
-								</span>
-								<span class="rrssb-text">facebook</span>
-							</a>
-						</li>
-						<li class="rrssb-twitter">
-							<a href="http://twitter.com/home?status=Play Hextris! - http://hextris.github.io/ #hextris"
+							<span class="rrssb-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="29"
+									height="29" viewBox="0 0 29 29">
+									<path
+										d="M26.4 0H2.6C1.714 0 0 1.715 0 2.6v23.8c0 .884 1.715 2.6 2.6 2.6h12.393V17.988h-3.996v-3.98h3.997v-3.062c0-3.746 2.835-5.97 6.177-5.97 1.6 0 2.444.173 2.845.226v3.792H21.18c-1.817 0-2.156.9-2.156 2.168v2.847h5.045l-.66 3.978h-4.386V29H26.4c.884 0 2.6-1.716 2.6-2.6V2.6c0-.885-1.716-2.6-2.6-2.6z"
+										class="cls-2" fill-rule="evenodd" />
+								</svg>
+							</span>
+							<span class="rrssb-text">facebook</span>
+						</a>
+					</li>
+					<li class="rrssb-twitter">
+						<a href="http://twitter.com/home?status=Play Hextris! - http://hextris.github.io/ #hextris"
 							class="popup">
-								<span class="rrssb-icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
-										<path d="M24.253 8.756C24.69 17.08 18.297 24.182 9.97 24.62c-3.122.162-6.22-.646-8.86-2.32 2.702.18 5.375-.648 7.507-2.32-2.072-.248-3.818-1.662-4.49-3.64.802.13 1.62.077 2.4-.154-2.482-.466-4.312-2.586-4.412-5.11.688.276 1.426.408 2.168.387-2.135-1.65-2.73-4.62-1.394-6.965C5.574 7.816 9.54 9.84 13.802 10.07c-.842-2.738.694-5.64 3.434-6.48 2.018-.624 4.212.043 5.546 1.682 1.186-.213 2.318-.662 3.33-1.317-.386 1.256-1.248 2.312-2.4 2.942 1.048-.106 2.07-.394 3.02-.85-.458 1.182-1.343 2.15-2.48 2.71z"
-										/>
-									</svg>
-								</span>
-								<span class="rrssb-text">twitter</span>
-							</a>
-						</li>
-				</ul>
-					<div id='badges'>
-						<a href="https://play.google.com/store/apps/details?id=com.hextris.hextris" ><img id='androidBadge' src='images/android.png'/></a>
-						<a href ="https://itunes.apple.com/us/app/hextris/id903769553?mt=8"><img id='iOSBadge'  src='images/appstore.svg'/></a>
-					</div>
-				</div>
+							<span class="rrssb-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+									<path
+										d="M24.253 8.756C24.69 17.08 18.297 24.182 9.97 24.62c-3.122.162-6.22-.646-8.86-2.32 2.702.18 5.375-.648 7.507-2.32-2.072-.248-3.818-1.662-4.49-3.64.802.13 1.62.077 2.4-.154-2.482-.466-4.312-2.586-4.412-5.11.688.276 1.426.408 2.168.387-2.135-1.65-2.73-4.62-1.394-6.965C5.574 7.816 9.54 9.84 13.802 10.07c-.842-2.738.694-5.64 3.434-6.48 2.018-.624 4.212.043 5.546 1.682 1.186-.213 2.318-.662 3.33-1.317-.386 1.256-1.248 2.312-2.4 2.942 1.048-.106 2.07-.394 3.02-.85-.458 1.182-1.343 2.15-2.48 2.71z" />
+								</svg>
+							</span>
+							<span class="rrssb-text">twitter</span>
+						</a>
+					</li>
+				</ul> -->
+				<!-- <div id='badges'>
+					<a href="https://play.google.com/store/apps/details?id=com.hextris.hextris"><img id='androidBadge'
+							src='images/android.png' /></a>
+					<a href="https://itunes.apple.com/us/app/hextris/id903769553?mt=8"><img id='iOSBadge'
+							src='images/appstore.svg' /></a>
+				</div> -->
 			</div>
 		</div>
-			<script type="text/javascript">
-				(function addRussianSocialShare(){
-					var lang=navigator.language || navigator.userLanguage;
-					if (lang.substr(0, 2) == 'ru') {
-						$('.rrssb-facebook').remove();
-						var n=$.parseHTML('<li class="rrssb-vk"><a href="http://vk.com/share.php?url=http://kurtnoble.com/labs/rrssb/index.html" class="popup"><span class="rrssb-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="70 70 378.7 378.7"><path d="M254.998 363.106h21.217s6.408-.706 9.684-4.23c3.01-3.24 2.914-9.32 2.914-9.32s-.415-28.47 12.796-32.663c13.03-4.133 29.755 27.515 47.482 39.685 13.407 9.206 23.594 7.19 23.594 7.19l47.407-.662s24.797-1.53 13.038-21.027c-.96-1.594-6.85-14.424-35.247-40.784-29.728-27.59-25.743-23.126 10.063-70.85 21.807-29.063 30.523-46.806 27.8-54.405-2.596-7.24-18.636-5.326-18.636-5.326l-53.375.33s-3.96-.54-6.892 1.216c-2.87 1.716-4.71 5.726-4.71 5.726s-8.452 22.49-19.714 41.618c-23.77 40.357-33.274 42.494-37.16 39.984-9.037-5.842-6.78-23.462-6.78-35.983 0-39.112 5.934-55.42-11.55-59.64-5.802-1.4-10.076-2.327-24.915-2.48-19.046-.192-35.162.06-44.29 4.53-6.072 2.975-10.757 9.6-7.902 9.98 3.528.47 11.516 2.158 15.75 7.92 5.472 7.444 5.28 24.154 5.28 24.154s3.145 46.04-7.34 51.758c-7.193 3.922-17.063-4.085-38.253-40.7-10.855-18.755-19.054-39.49-19.054-39.49s-1.578-3.873-4.398-5.947c-3.42-2.51-8.2-3.307-8.2-3.307l-50.722.33s-7.612.213-10.41 3.525c-2.488 2.947-.198 9.036-.198 9.036s39.707 92.902 84.672 139.72c41.234 42.93 88.048 40.112 88.048 40.112"/></svg></span><span class="rrssb-text">vk.com</span></a></li>');
-						$('.rrssb-buttons').prepend(n);
-					}})()
-			</script>
-		<script type="text/javascript" src='vendor/rrssb.min.js'></script>
-	</body>
+	</div>
+	<script type="text/javascript">
+		(function addRussianSocialShare() {
+			var lang = navigator.language || navigator.userLanguage;
+			if (lang.substr(0, 2) == 'ru') {
+				$('.rrssb-facebook').remove();
+				var n = $.parseHTML('<li class="rrssb-vk"><a href="http://vk.com/share.php?url=http://kurtnoble.com/labs/rrssb/index.html" class="popup"><span class="rrssb-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="70 70 378.7 378.7"><path d="M254.998 363.106h21.217s6.408-.706 9.684-4.23c3.01-3.24 2.914-9.32 2.914-9.32s-.415-28.47 12.796-32.663c13.03-4.133 29.755 27.515 47.482 39.685 13.407 9.206 23.594 7.19 23.594 7.19l47.407-.662s24.797-1.53 13.038-21.027c-.96-1.594-6.85-14.424-35.247-40.784-29.728-27.59-25.743-23.126 10.063-70.85 21.807-29.063 30.523-46.806 27.8-54.405-2.596-7.24-18.636-5.326-18.636-5.326l-53.375.33s-3.96-.54-6.892 1.216c-2.87 1.716-4.71 5.726-4.71 5.726s-8.452 22.49-19.714 41.618c-23.77 40.357-33.274 42.494-37.16 39.984-9.037-5.842-6.78-23.462-6.78-35.983 0-39.112 5.934-55.42-11.55-59.64-5.802-1.4-10.076-2.327-24.915-2.48-19.046-.192-35.162.06-44.29 4.53-6.072 2.975-10.757 9.6-7.902 9.98 3.528.47 11.516 2.158 15.75 7.92 5.472 7.444 5.28 24.154 5.28 24.154s3.145 46.04-7.34 51.758c-7.193 3.922-17.063-4.085-38.253-40.7-10.855-18.755-19.054-39.49-19.054-39.49s-1.578-3.873-4.398-5.947c-3.42-2.51-8.2-3.307-8.2-3.307l-50.722.33s-7.612.213-10.41 3.525c-2.488 2.947-.198 9.036-.198 9.036s39.707 92.902 84.672 139.72c41.234 42.93 88.048 40.112 88.048 40.112"/></svg></span><span class="rrssb-text">vk.com</span></a></li>');
+				$('.rrssb-buttons').prepend(n);
+			}
+		})()
+	</script>
+	<script type="text/javascript" src='vendor/rrssb.min.js'></script>
+</body>
+
 </html>
