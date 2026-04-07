@@ -13,12 +13,15 @@ Enjine.GameCanvas = function() {
 Enjine.GameCanvas.prototype = {
     Initialize: function(canvasId, resWidth, resHeight) {
 		this.Canvas = document.getElementById(canvasId);
+		this.Canvas.width = resWidth;
+		this.Canvas.height = resHeight;
 		this.Context2D = this.Canvas.getContext("2d");
 		this.BackBuffer = document.createElement("canvas");
 		this.BackBuffer.width = resWidth;
 		this.BackBuffer.height = resHeight;
 		this.BackBufferContext2D = this.BackBuffer.getContext("2d");
 	},
+
 	
     BeginDraw: function() {
         this.BackBufferContext2D.clearRect(0, 0, this.BackBuffer.width, this.BackBuffer.height);
