@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Radius Raid</title>
+	<link rel="shortcut icon" id="favicon" />
+
+	<style>
+		body {
+			background: #080808;
+		}
+
+		#wrap {
+			background: #222;
+			box-shadow: inset 0 0 0 1px #404040, 0 0 0 1px #000;
+			left: 50%;
+			opacity: 0;
+			padding: 10px;
+			position: absolute;
+			top: 50%;
+			transition: opacity 1.5s;
+		}
+
+		.loaded #wrap {
+			opacity: 1;
+		}
+
+		#wrap-inner {
+			background: #000;
+			overflow: hidden;
+			position: relative;
+		}
+
+		canvas {
+			cursor: crosshair;
+			display: block;
+			left: 0;
+			position: absolute;
+			top: 0;
+		}
+
+		#logo-overlay {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			z-index: 1000;
+			pointer-events: none;
+		}
+
+		#sound-toggle {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			z-index: 1001;
+			cursor: pointer;
+			background: rgba(0, 0, 0, 0.5);
+			border: 1px solid #444;
+			padding: 5px;
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background 0.2s;
+		}
+
+		#sound-toggle:hover {
+			background: rgba(50, 50, 50, 0.8);
+		}
+
+		#sound-toggle svg {
+			width: 24px;
+			height: 24px;
+			fill: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="logo-overlay">
+		<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAAAoCAYAAAA/mlIyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMS1jMDAyIDc5LmYzNTRlZmM3MCwgMjAyMy8xMS8wOS0xMjowNTo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI1LjUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjEwNjVBRDE0OEE1MzExRUY5MkFDRjVDMzg1M0RCMjkwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjEwNjVBRDE0OEE1MzExRUY5MkFDRjVDMzg1M0RCMjkwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjEwNjVBRDE1OEE1MzExRUY5MkFDRjVDMzg1M0RCMjkwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTA2NUFEMTI4QTUzMTFFRjkyQUNGNUMzODUzREIyOTAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MTA2NUFEMTM4QTUzMTFFRjkyQUNGNUMzODUzREIyOTAiLz4gPC9yZGY6RGVzY3JpcHRpb24+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"
+			alt="PIF Logo">
+	</div>
+
+	<div id="sound-toggle">
+		<svg id="sound-icon" viewBox="0 0 24 24">
+			<path
+				d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+		</svg>
+	</div>
+
+	<div id="wrap">
+		<div id="wrap-inner">
+			<canvas id="cbg1"></canvas>
+			<canvas id="cbg2"></canvas>
+			<canvas id="cbg3"></canvas>
+			<canvas id="cbg4"></canvas>
+			<canvas id="cmg"></canvas>
+			<canvas id="cfg"></canvas>
+		</div>
+	</div>
+
+	<script>var $ = {};</script>
+	<script src="js/jsfxr.js"></script>
+	<script src="js/util.js"></script>
+	<script src="js/storage.js"></script>
+	<script src="js/definitions.js"></script>
+	<script src="js/audio.js"></script>
+	<script src="js/text.js"></script>
+	<script src="js/hero.js"></script>
+	<script src="js/enemy.js"></script>
+	<script src="js/bullet.js"></script>
+	<script src="js/explosion.js"></script>
+	<script src="js/powerup.js"></script>
+	<script src="js/particle.js"></script>
+	<script src="js/particleemitter.js"></script>
+	<script src="js/textpop.js"></script>
+	<script src="js/levelpop.js"></script>
+	<script src="js/button.js"></script>
+	<script src="js/game.js"></script>
+
+	<audio id="bgMusic" src="radius-raid-master-bg-sound.mp3" loop></audio>
+	<script>
+		var bgMusic = document.getElementById('bgMusic');
+		var soundToggle = document.getElementById('sound-toggle');
+		var soundIcon = document.getElementById('sound-icon');
+
+		var speakerSVG = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+		var mutedSVG = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+
+		bgMusic.volume = 0.5;
+
+		soundToggle.addEventListener('mousedown', function(e) {
+			e.stopPropagation();
+			$.mute = !$.mute;
+			bgMusic.muted = $.mute;
+			soundIcon.innerHTML = $.mute ? mutedSVG : speakerSVG;
+		});
+
+		var playMusic = function() {
+			bgMusic.play().catch(function(e) {
+				console.log('Audio play failed:', e);
+			});
+			window.removeEventListener('mousedown', playMusic);
+			window.removeEventListener('keydown', playMusic);
+			window.removeEventListener('touchstart', playMusic);
+		};
+		window.addEventListener('mousedown', playMusic);
+		window.addEventListener('keydown', playMusic);
+		window.addEventListener('touchstart', playMusic);
+	</script>
+</body>
+
+</html>
